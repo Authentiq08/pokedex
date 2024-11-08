@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Pokedex</string>
+    <string name="app_title">Pokedex</string>
+    <string name="input_search">Search</string>
+    <string name="detail_about">About</string>
+    <string name="detail_weight">weight</string>
+    <string name="detail_height">height</string>
+    <string name="detail_move">move</string>
+    <string name="base_stats">Base Stats</string>
+
+    <string name="text_hp">HP</string>
+    <string name="text_atk">ATK</string>
+    <string name="text_def">DEF</string>
+    <string name="text_satk">SATK</string>
+    <string name="text_sdef">SDEF</string>
+    <string name="text_spd">SPD</string>
+
+    <string name="wifi_off_desc">No internet connection</string>
+    <string name="no_connection_message">Internet connection failed</string>
+    <string name="refresh">Refresh</string>
+    <string name="check_internet">Check your internet</string>
+
+
+
+
+</resources>

@@ -1,0 +1,21 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background (non rempli) avec coins arrondis -->
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="8dp" /> <!-- Définit les coins arrondis -->
+            <solid android:color="@color/white"/> <!-- Couleur de fond -->
+        </shape>
+    </item>
+
+    <!-- Progress (rempli) avec coins arrondis -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners android:radius="8dp" /> <!-- Même rayon pour garder les coins alignés -->
+                <solid android:color="@color/progressBar"/> <!-- Couleur de la barre de progression -->
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

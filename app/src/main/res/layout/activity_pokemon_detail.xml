@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detailMainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/detail_background_color"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/dLayoutName"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="24dp"
+        >
+
+        <ImageView
+            android:id="@+id/dBackToHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="8dp"
+            android:src="@drawable/ic_back_to_home">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/dPokemonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="8dp"
+            android:textSize="32sp"
+            android:text=""
+            android:textColor="@color/white">
+        </TextView>
+
+        <TextView
+            android:id="@+id/dPokemonID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/white">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/waitingGif"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:visibility="visible"
+        android:src="@drawable/pokemonsgf"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/dPokemonImage"
+        android:layout_width="155dp"
+        android:layout_height="155dp"
+        android:contentDescription="PokemonPic"
+        android:elevation="4dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dLayoutName" />
+
+    <ProgressBar
+        android:id="@+id/loadingSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dLayoutName"
+        android:indeterminateTint="@color/white"
+        android:layout_marginTop="50dp"/>
+
+    <LinearLayout
+        android:id="@+id/dLayoutNavigation"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/dLayoutName"
+        tools:layout_editor_absoluteX="0dp">
+
+        <ImageView
+            android:id="@+id/previousItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="155dp"
+            android:paddingRight="8dp"
+            android:src="@drawable/ic_chevron_left" />
+
+
+        <ImageView
+            android:id="@+id/nextItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="8dp"
+            android:src="@drawable/ic_chevron_right" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dStatsLayoutLoading"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/ic_detail_white"
+        app:layout_constraintTop_toBottomOf="@+id/dLayoutNavigation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <ProgressBar
+            android:id="@+id/loadingSpinnerStat"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            app:layout_constraintTop_toBottomOf="@id/dLayoutName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/dStatsLayout"
+            android:indeterminateTint="@color/progressBar2"
+            android:layout_marginTop="50dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dStatsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/ic_detail_white"
+        app:layout_constraintTop_toBottomOf="@+id/dLayoutNavigation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <LinearLayout
+            android:id="@+id/dLayoutType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/TextAbout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_about"
+            android:textStyle="bold"
+            android:textColor="@color/dark"
+            android:layout_marginTop="16dp"
+            />
+
+    <LinearLayout
+        android:id="@+id/dLayoutCharacteristic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="6dp"
+        android:weightSum="3"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            >
+
+            <ImageView
+                android:id="@+id/imageWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_weight"
+                app:layout_constraintBottom_toTopOf="@+id/textWeight"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dPokemonWeight"
+                />
+
+            <TextView
+                android:id="@+id/dPokemonWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0kg"
+                android:textColor="@color/dark"
+                app:layout_constraintBottom_toTopOf="@+id/textWeight"
+                app:layout_constraintStart_toEndOf="@+id/imageWeight"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/textWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_weight"
+                android:textColor="@color/dark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageHeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_height"
+                app:layout_constraintBottom_toTopOf="@+id/textHeight"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dPokemonHeight"
+                />
+
+            <TextView
+                android:id="@+id/dPokemonHeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0m"
+                android:textColor="@color/dark"
+                app:layout_constraintBottom_toTopOf="@+id/textHeight"
+                app:layout_constraintStart_toEndOf="@+id/imageHeight"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/textHeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_height"
+                android:textColor="@color/dark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/dPokemonAbilitiesLayout"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/textMove"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textMove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_move"
+                android:textColor="@color/dark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/dPokemonDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="13sp"
+            android:text="Test de la size"
+            android:gravity="center">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/base_stats">
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="20"
+            android:padding="4dp"
+            >
+
+            <TextView
+                android:id="@+id/dTextHP"
+                android:layout_margin="2dp"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:text="@string/text_hp"/>
+
+            <TextView
+                android:layout_margin="2dp"
+                android:id="@+id/dPokemonHP"
+                android:layout_width="0dp"
+
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="000"/>
+
+            <ProgressBar
+                android:id="@+id/dHPProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_weight="15"
+                android:layout_width="0dp"
+                android:progress="0"
+                android:progressTint="@color/progressBar"
+                android:layout_margin="2dp"
+                android:layout_height="wrap_content"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="20"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            >
+
+            <TextView
+                android:id="@+id/dTextATK"
+                android:layout_margin="2dp"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+
+                android:layout_height="wrap_content"
+                android:text="@string/text_atk"/>
+
+            <TextView
+                android:layout_margin="2dp"
+                android:id="@+id/dPokemonATK"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+
+                android:layout_height="wrap_content"
+                android:text="000"/>
+
+            <ProgressBar
+                android:id="@+id/dATKProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_weight="15"
+                android:layout_width="0dp"
+
+                android:progress="0"
+                android:progressTint="@color/progressBar"
+                android:layout_margin="2dp"
+                android:layout_height="wrap_content"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="20"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            >
+
+            <TextView
+                android:id="@+id/dTextDEF"
+                android:layout_margin="2dp"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+
+                android:layout_height="wrap_content"
+                android:text="@string/text_def"/>
+
+            <TextView
+                android:layout_margin="2dp"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+
+                android:id="@+id/dPokemonDEF"
+                android:layout_height="wrap_content"
+                android:text="000"/>
+
+            <ProgressBar
+                android:id="@+id/dDEFProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_weight="15"
+                android:layout_width="0dp"
+
+                android:progress="0"
+                android:progressTint="@color/progressBar"
+                android:layout_margin="2dp"
+                android:layout_height="wrap_content"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="20"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            >
+
+            <TextView
+                android:id="@+id/dTextSATK"
+                android:layout_margin="2dp"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/text_satk"/>
+
+            <TextView
+                android:layout_margin="2dp"
+                android:id="@+id/dPokemonSATK"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="000"/>
+
+            <ProgressBar
+                android:id="@+id/dSATKProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progress="0"
+                android:progressTint="@color/progressBar"
+                android:layout_margin="2dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="15"
+                android:layout_width="0dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="20"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            >
+
+            <TextView
+                android:id="@+id/dTextSDEF"
+                android:layout_margin="2dp"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:text="@string/text_sdef"/>
+
+            <TextView
+                android:layout_margin="2dp"
+                android:id="@+id/dPokemonSDEF"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="000"/>
+
+            <ProgressBar
+                android:id="@+id/dSDEFProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:progress="0"
+                android:progressTint="@color/progressBar"
+                android:layout_margin="2dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="15" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="20"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            >
+
+            <TextView
+                android:id="@+id/dTextSPD"
+                android:layout_margin="2dp"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:text="@string/text_spd"/>
+
+            <TextView
+                android:layout_margin="2dp"
+                android:id="@+id/dPokemonSPD"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="000"/>
+
+            <ProgressBar
+                android:id="@+id/dSPDProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:progress="0"
+                android:progressTint="@color/progressBar"
+                android:layout_margin="2dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="15" />
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

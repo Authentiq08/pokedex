@@ -1,0 +1,20 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Rectangle avec couleur de fond modifiable -->
+    <item android:id="@+id/background_color_item">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white" /> <!-- Couleur par défaut -->
+        </shape>
+    </item>
+
+    <!-- Image vectorielle en haut à droite avec marge et opacité -->
+    <item
+        android:drawable="@drawable/back_pokedex"
+        android:gravity="top|end"
+        android:insetLeft="8dp"
+        android:insetTop="8dp"
+        android:insetRight="8dp"
+        android:insetBottom="8dp"
+        android:alpha="0.1" />
+
+</layer-list>
