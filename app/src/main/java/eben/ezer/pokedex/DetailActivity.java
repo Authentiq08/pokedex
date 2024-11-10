@@ -3,6 +3,7 @@ package eben.ezer.pokedex;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
@@ -97,6 +98,7 @@ public class DetailActivity extends AppCompatActivity {
     private ProgressBar mSDEFProgressBar;
     private ProgressBar dSPDProgressBar;
     private ProgressBar mProgressImage;
+    private ProgressBar mLoadingSpinnerStat;
 
     private ConstraintLayout detailMainlayout;
 
@@ -146,6 +148,7 @@ public class DetailActivity extends AppCompatActivity {
         mNextItem = (ImageView) findViewById(R.id.nextItem);
         mStatsLayoutLoading = (LinearLayout) findViewById(R.id.dStatsLayoutLoading);
         mProgressImage =  (ProgressBar)findViewById(R.id.loadingSpinner);
+        mLoadingSpinnerStat = (ProgressBar)findViewById(R.id.loadingSpinnerStat);
         waitingGif = (GifImageView) findViewById(R.id.waitingGif);
 
 
@@ -185,7 +188,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void nextItem(){
-        if(this.pokemonId < 150){
+        if(this.pokemonId < MainActivity.TOTAL_POKEMON){
             this.pokemonId ++;
             disableNavigationButtons();
             clearAll();
@@ -534,6 +537,13 @@ public class DetailActivity extends AppCompatActivity {
         dSPDTextFinal.setTextColor(color);
     }
 
+    public void changeSpinnerColor(int color){
+        if (mLoadingSpinnerStat != null) {
+            mLoadingSpinnerStat.setIndeterminateTintList(ColorStateList.valueOf(color));
+        }
+    }
+
+
     private void changeTypesBackgroundBorderColor(int color) {
         GradientDrawable drawable = (GradientDrawable) getResources().getDrawable(R.drawable.types_background);
 
@@ -546,6 +556,7 @@ public class DetailActivity extends AppCompatActivity {
         changeBackgroundColor(color);
         changStatusBarColor(getWindow(), color);
         changeTextColor(color);
+        changeSpinnerColor(color);
     }
 
     public void clearAll(){

@@ -40,6 +40,7 @@ import eben.ezer.pokedex.model.Pokemon;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewInterface {
 
+   public static final int TOTAL_POKEMON = 400;
    private RecyclerView recyclerView;
    private PokemonListAdapter adapter;
    private SearchView searchView;
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     public void requestJsonData(){
         requestQueue = Volley.newRequestQueue(context);
-        stringRequest = new StringRequest(Request.Method.GET, "https://pokeapi.co/api/v2/pokemon?limit=400", new Response.Listener<String>() {
+        stringRequest = new StringRequest(Request.Method.GET, "https://pokeapi.co/api/v2/pokemon?limit="+ String.valueOf(MainActivity.TOTAL_POKEMON), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                 pokemonList.add(new Pokemon(pokemonID, pokemon.getString("name")));
             }catch(Exception e){
                 e.printStackTrace();
-                showToast("Pokemon Detail Error");
+                //showToast("Pokemon Detail Error");
             }
         }
 

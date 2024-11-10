@@ -54,6 +54,35 @@ public class ConnectionFailed extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        String previousActivity = getIntent().getStringExtra("previous_activity");
+        int pokemonId = getIntent().getIntExtra("POKEMON_ID", -1);
+
+        try {
+            if (previousActivity != null) {
+                Class<?> previousClass = Class.forName(previousActivity);
+                Intent retryIntent = new Intent(ConnectionFailed.this, previousClass);
+                retryIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                if (pokemonId != -1) retryIntent.putExtra("POKEMON_ID", pokemonId);
+                startActivity(retryIntent);
+                finish();
+            } else {
+                Intent retryIntent = new Intent(ConnectionFailed.this, MainActivity.class);
+                retryIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(retryIntent);
+                finish();
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            Intent retryIntent = new Intent(ConnectionFailed.this, MainActivity.class);
+            retryIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(retryIntent);
+            finish();
+        }
+    }
+
     public static void changStatusBarColor(Window window, int couleur) {
         window.setStatusBarColor(couleur);
 
