@@ -28,7 +28,7 @@ import android.graphics.drawable.PictureDrawable;
 public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.PokemonListAdapterHolder>{
     private final RecyclerViewInterface mRecyclerViewInterface;
 
-    private final List<Pokemon> mPokemonList;
+    private List<Pokemon> mPokemonList;
     private final Context mContext;
 
     // Constructeur pour passer la liste de Pokémon et le contexte
@@ -36,6 +36,11 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
         this.mPokemonList = pokemonList;
         this.mContext = context;
         this.mRecyclerViewInterface = recyclerViewInterface;
+    }
+
+    public void setFilteredList(List<Pokemon> filteredList){
+        this.mPokemonList = filteredList;
+        notifyDataSetChanged();
     }
 
     @NonNull

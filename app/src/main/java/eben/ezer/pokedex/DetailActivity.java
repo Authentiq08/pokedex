@@ -2,6 +2,7 @@ package eben.ezer.pokedex;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
@@ -256,6 +257,8 @@ public class DetailActivity extends AppCompatActivity {
         final String pokeIDString = String.valueOf(pokemonId);
         requestQueue = Volley.newRequestQueue(context);
 
+        Log.d("DEBUGP", "https://pokeapi.co/api/v2/pokemon/" + pokeIDString);
+
         stringRequest = new StringRequest(Request.Method.GET, "https://pokeapi.co/api/v2/pokemon/" + pokeIDString, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -271,7 +274,8 @@ public class DetailActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                showToast("API call error");
+                //showToast("API call error");
+                showConnectionFailed();
                 enableNavigationButtons();
             }
         }){
@@ -302,7 +306,8 @@ public class DetailActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                showToast("API call error");
+                //showToast("API call error");
+                showConnectionFailed();
                 enableNavigationButtons();
             }
         }){
@@ -580,6 +585,13 @@ public class DetailActivity extends AppCompatActivity {
         if(mNextItem != null){
             mNextItem.setEnabled(true);
         }
+    }
+
+    public void showConnectionFailed(){
+        Intent errorIntent = new Intent(DetailActivity.this, ConnectionFailed.class);
+        errorIntent.putExtra("previous_activity", DetailActivity.class.getName());
+        errorIntent.putExtra("POKEMON_ID", this.pokemonId);
+        startActivity(errorIntent);
     }
 
 }

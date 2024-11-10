@@ -24,6 +24,10 @@
     <color name="progressBar">#0064b4</color>
     <color name="gray">#efefef</color>
     <color name="fairy">#EE99AC</color>
+    <color name="grayt">#DCDCDC</color>
+    <color name="backgroundColor">#F5F5F5</color>
+
+
 
     <color name="progressBar2">#4285F4</color>
 

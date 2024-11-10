@@ -18,9 +18,7 @@
     <string name="wifi_off_desc">No internet connection</string>
     <string name="no_connection_message">Internet connection failed</string>
     <string name="refresh">Refresh</string>
-    <string name="check_internet">Check your internet</string>
-
-
+    <string name="check_internet">Check your internet connection</string>
 
 
 </resources>

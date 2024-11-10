@@ -12,6 +12,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowInsetsController;
+//import android.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
+
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -38,6 +41,8 @@ import eben.ezer.pokedex.model.Pokemon;
 public class MainActivity extends AppCompatActivity implements RecyclerViewInterface {
 
    private RecyclerView recyclerView;
+   private PokemonListAdapter adapter;
+   private SearchView searchView;
    private Context context;
    private RequestQueue requestQueue;
    private List<Pokemon> pokemonList = new ArrayList<>();
@@ -58,16 +63,31 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     public void init(){
         this.recyclerView = findViewById(R.id.pokemonRecyclerView);
         this.context = MainActivity.this;
+        this.searchView = findViewById(R.id.mSearchView);
+        searchView.clearFocus();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+
     }
 
     public void requestJsonData(){
         requestQueue = Volley.newRequestQueue(context);
-        stringRequest = new StringRequest(Request.Method.GET, "https://pokeapi.co/api/v2/pokemon?limit=150", new Response.Listener<String>() {
+        stringRequest = new StringRequest(Request.Method.GET, "https://pokeapi.co/api/v2/pokemon?limit=400", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
                 try {
-
                     //Log.d("onResponse:", response);
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
@@ -79,7 +99,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                showToast("API call error");
+                //showToast("API call error");
+
+                Intent errorIntent = new Intent(MainActivity.this, ConnectionFailed.class);
+                errorIntent.putExtra("previous_activity", MainActivity.class.getName());
+                startActivity(errorIntent);
+
             }
         }){
             @Override
@@ -103,11 +128,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                 showToast("Pokemon Detail Error");
             }
         }
-        //Log.d("onName:", pokemonList.get(0).getName());
-        //Log.d("onID:", pokemonList.get(0).getId());
-        //Log.d("onURL:", pokemonList.get(0).getPic());
 
-        PokemonListAdapter adapter = new PokemonListAdapter(pokemonList, context, this);
+        adapter = new PokemonListAdapter(pokemonList, context, this);
         // Utiliser un GridLayoutManager avec 2 colonnes
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -172,14 +194,25 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         }*/
     }
 
+    private void filterList(String text) {
+        List<Pokemon> filteredList = new ArrayList<>();
+        for(Pokemon pokemon : pokemonList){
+            if(pokemon.getName().toLowerCase().contains(text.toLowerCase()) ||
+                    String.valueOf(pokemon.getId()).contains(text)){
+                filteredList.add(pokemon);
+            }
+        }
+
+        if(filteredList.isEmpty()){
+            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+        }else{
+            adapter.setFilteredList(filteredList);
+        }
+    }
+
 
     @Override
     public void onItemClick(int pokemonID) {
-        //String pokID = String.valueOf(pokemonID);
-        //Log.d("TAG", "onItemClick: "+pokID);
-        //Log.i("TAG", "onItemClick: "+pokID);
-        //Toast.makeText(this, pokID, Toast.LENGTH_SHORT).show();
-
         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
         intent.putExtra("POKEMON_ID", pokemonID);
         startActivity(intent);
