@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.view.WindowInsetsController;
 //import android.widget.SearchView;
 import androidx.appcompat.widget.SearchView;
 
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
    public static final int TOTAL_POKEMON = 400;
    private RecyclerView recyclerView;
    private PokemonListAdapter adapter;
+   private LinearLayout mPokemonNoDataFoundView;
    private SearchView searchView;
    private Context context;
    private RequestQueue requestQueue;
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         init();
         requestJsonData();
         changStatusBarColor(getWindow(), getResources().getColor(R.color.redBack, null));
@@ -65,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         this.recyclerView = findViewById(R.id.pokemonRecyclerView);
         this.context = MainActivity.this;
         this.searchView = findViewById(R.id.mSearchView);
+        this.mPokemonNoDataFoundView = (LinearLayout) findViewById(R.id.pokemonNoDataFoundView);
         searchView.clearFocus();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -205,8 +210,17 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         }
 
         if(filteredList.isEmpty()){
-            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+            if(mPokemonNoDataFoundView != null && recyclerView != null){
+                recyclerView.setVisibility(View.GONE);
+                mPokemonNoDataFoundView.setVisibility(View.VISIBLE);
+            }
+
+            //Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
         }else{
+            if(mPokemonNoDataFoundView != null && recyclerView != null){
+                recyclerView.setVisibility(View.VISIBLE);
+                mPokemonNoDataFoundView.setVisibility(View.GONE);
+            }
             adapter.setFilteredList(filteredList);
         }
     }
@@ -217,5 +231,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
         intent.putExtra("POKEMON_ID", pokemonID);
         startActivity(intent);
+        //Log.d("LAST", String.valueOf(adapter.getItemCount()));
     }
 }

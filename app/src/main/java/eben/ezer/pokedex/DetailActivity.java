@@ -3,6 +3,7 @@ package eben.ezer.pokedex;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -111,6 +112,7 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pokemon_detail);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         changStatusBarColor(getWindow(), getResources().getColor(R.color.white, null));
 
         this.pokemonId = getIntent().getIntExtra("POKEMON_ID", -1);
@@ -183,7 +185,7 @@ public class DetailActivity extends AppCompatActivity {
             loadingStatDetail(mStatLayout, mStatsLayoutLoading, mProgressImage);
             fetchData(pokemonId);
         } else {
-            showToast("Il n'y a pas de Pokémon précédent.");  // Message si aucun Pokémon précédent
+            showToast(getString(R.string.no_previous_pokemon));
         }
     }
 
@@ -195,7 +197,7 @@ public class DetailActivity extends AppCompatActivity {
             loadingStatDetail(mStatLayout, mStatsLayoutLoading, mProgressImage);
             fetchData(pokemonId);
         } else {
-            showToast("Il n'y a pas de Pokémon suivant.");  // Message si aucun Pokémon suivant
+            showToast(getString(R.string.no_next_pokemon));
         }
     }
 

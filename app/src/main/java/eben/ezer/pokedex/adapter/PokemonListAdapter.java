@@ -38,6 +38,11 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
         this.mRecyclerViewInterface = recyclerViewInterface;
     }
 
+    public List<Pokemon> getPokemonList() {
+        return mPokemonList;
+    }
+
+
     public void setFilteredList(List<Pokemon> filteredList){
         this.mPokemonList = filteredList;
         notifyDataSetChanged();
@@ -47,7 +52,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
     @Override
     public PokemonListAdapterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.pokemon_item, parent, false);
-        return new PokemonListAdapterHolder(view, mRecyclerViewInterface, mPokemonList);
+        return new PokemonListAdapterHolder(view, mRecyclerViewInterface, this);
     }
 
     @Override
@@ -101,15 +106,16 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
         private TextView pId, pName;
         private ImageView pImageView;
         private ProgressBar pLoadingSpin;
+        private PokemonListAdapter adapter;
 
 
-        public PokemonListAdapterHolder(@NonNull View itemView, RecyclerViewInterface mRecyclerViewInterface, List<Pokemon> pokemonList) {
+        public PokemonListAdapterHolder(@NonNull View itemView, RecyclerViewInterface mRecyclerViewInterface, PokemonListAdapter adapter) {
             super(itemView);
+            this.adapter = adapter;
             pId = itemView.findViewById(R.id.pokemonId);
             pImageView = itemView.findViewById(R.id.pokemonImage);
             pName = itemView.findViewById(R.id.pokemonName);
             pLoadingSpin = itemView.findViewById(R.id.LloadingSpinner);
-
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -118,7 +124,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<PokemonListAdapter.
                     if(mRecyclerViewInterface != null){
                         int position = getAdapterPosition();
                         if(position != RecyclerView.NO_POSITION){
-                            int pokemonId = Integer.parseInt(pokemonList.get(position).getId());
+                            int pokemonId = Integer.parseInt(adapter.getPokemonList().get(position).getId());
                             mRecyclerViewInterface.onItemClick(pokemonId);
                         }
                     }

@@ -17,8 +17,12 @@
 
     <string name="wifi_off_desc">No internet connection</string>
     <string name="no_connection_message">Internet connection failed</string>
+    <string name="no_data_found">No data found</string>
     <string name="refresh">Refresh</string>
     <string name="check_internet">Check your internet connection</string>
+    <string name="no_previous_pokemon">There is no previous Pokémon.</string>
+    <string name="no_next_pokemon">There is no next Pokémon.</string>
+
 
 
 </resources>
