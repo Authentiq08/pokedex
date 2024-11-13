@@ -554,11 +554,21 @@ public class DetailActivity extends AppCompatActivity {
         //drawable.setColor(color);
     }
 
+    public void changeProgressBarColor(int color){
+        if(mHPProgressBar != null)mHPProgressBar.setProgressTintList(ColorStateList.valueOf(color));
+        if(mATKProgressBar != null)mATKProgressBar.setProgressTintList(ColorStateList.valueOf(color));
+        if(mDEFProgressBar != null)mDEFProgressBar.setProgressTintList(ColorStateList.valueOf(color));
+        if(mSATKProgressBar != null)mSATKProgressBar.setProgressTintList(ColorStateList.valueOf(color));
+        if(mSDEFProgressBar != null)mSDEFProgressBar.setProgressTintList(ColorStateList.valueOf(color));
+        if(dSPDProgressBar != null)dSPDProgressBar.setProgressTintList(ColorStateList.valueOf(color));
+    }
+
     public void changAllColor(int color){
         changeBackgroundColor(color);
         changStatusBarColor(getWindow(), color);
         changeTextColor(color);
         changeSpinnerColor(color);
+        changeProgressBarColor(color);
     }
 
     public void clearAll(){
